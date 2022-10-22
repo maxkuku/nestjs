@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Post, Put, Req } from '@nestjs/common';
 import { PostsService } from '../modules/posts/posts.service';
-import { Posts } from '../dto/post.dto';
+import { CreatePost, Posts } from '../dto/post.dto';
 import { htmlTemplate } from '../../views/template';
 import { postsTemplate } from '../../views/posts';
 import { Request } from 'express';
@@ -25,7 +25,8 @@ export class PostsController {
   }
 
   @Post('create')
-  async createPost(@Body() data: Posts): Promise<Posts> {
+  async createPost(@Body() data: CreatePost): Promise<Posts> {
+    console.log(data);
     return this.postsService.createPost(data);
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Posts } from '../../dto/post.dto';
+import { Posts, CreatePost } from '../../dto/post.dto';
 
 const posts: Posts[] = [
   {
@@ -12,17 +12,21 @@ const posts: Posts[] = [
     comments: [
       {
         id: 1,
-        text: 'comment 1',
+        text: 'comment first native',
         createdAt: new Date(Date.now()),
+        attachments: null,
       },
       {
         id: 2,
-        text: 'second comment',
+        text: 'second native comment',
         createdAt: new Date(Date.now()),
+        attachments: null,
       },
     ],
   },
 ];
+
+let postId = 2;
 
 @Injectable()
 export class PostsService {
@@ -31,9 +35,17 @@ export class PostsService {
     return posts;
   }
 
-  async createPost(data: Posts): Promise<Posts> {
-    posts.push(data);
-    return data;
+  async createPost(data: CreatePost): Promise<Posts> {
+    const post: Posts = {
+      ...data,
+      id: postId++,
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now()),
+      comments: [],
+    };
+
+    posts.push(post);
+    return post;
   }
 
   async updatePost(data: Posts): Promise<Posts> {
@@ -56,7 +68,7 @@ export class PostsService {
 
   async getPost(postId: number): Promise<Posts> {
     const post = posts[postId];
-    // console.log(postId); // 1
+
     if (post) {
       return posts[postId];
     } else throw new Error('Post not found');

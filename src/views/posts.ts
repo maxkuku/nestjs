@@ -6,28 +6,39 @@ export const postsTemplate = (posts: Posts[]) => {
   }
   let html = '<div class="row">';
   for (const postsItem of posts) {
+    const dateCr = postsItem.createdAt
+      ? postsItem.createdAt.toLocaleDateString('en-CA')
+      : new Date().toLocaleDateString('en-CA');
+
     html += `
-<div class="col-lg-6">
+<div id="postId_${postsItem.id}" class="col-lg-6">
 <div class="card">
 <div class="card-body">
 <h5 class="card-title">${postsItem.name}</h5>
 <h6 class="card-subtitle mb-2 text-muted">
 ${postsItem.description}
 </h6><h6 class="card-subtitle mb-2 text-muted">
-Дата создания: ${postsItem.createdAt.toLocaleDateString('en-CA')}
+Дата создания: ${dateCr}
 </h6>
 <p class="card-text">${postsItem.text}</p>
 </div>
 <div class="card-footer">`;
 
-    if (postsItem.comments.length > 0) {
+    if (postsItem.comments !== undefined && postsItem.comments.length > 0) {
       for (const commentsItem of postsItem.comments) {
-        html += `<div class="comment">
+        const commCr = commentsItem.createdAt
+          ? commentsItem.createdAt.toLocaleDateString('en-CA')
+          : new Date().toLocaleDateString('en-CA');
+
+        html += `<div id="comment_${commentsItem.id}" class="comment">
         <p class="comments-text">${commentsItem.text}<br>
-        <em class="createdAt">${commentsItem.createdAt.toLocaleString(
-          'en-CA',
-        )}</em></p>
-        </div>`;
+        <em class="createdAt">${commCr}</em></p>`;
+        if (
+          commentsItem.attachments !== null &&
+          commentsItem.attachments !== undefined
+        )
+          html += `<p class="comments-attachments">${commentsItem.attachments}</p>`;
+        html += `</div>`;
       }
     }
 

@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { CommentsController } from '../../controllers/comments.controller';
+import { PostsController } from '../../controllers/posts.controller';
+import { LoggerModule } from '../logger/logger.module';
 import { PostsModule } from '../posts/posts.module';
 import { CommentsService } from './comments.service';
 
 @Module({
-  imports: [PostsModule],
-  controllers: [CommentsController],
+  imports: [PostsModule, LoggerModule],
+  controllers: [PostsController],
   providers: [Array, CommentsService],
   exports: [CommentsService],
 })
