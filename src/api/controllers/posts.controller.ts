@@ -8,7 +8,7 @@ import { Request } from 'express';
 @Controller('posts')
 export class PostsController {
   newsService: any;
-  constructor(private readonly postsService: PostsService) {}
+  constructor(private readonly postsService: PostsService) { }
 
   @Get('get-all')
   async getPosts(): Promise<string> {

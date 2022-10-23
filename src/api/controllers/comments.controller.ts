@@ -8,6 +8,7 @@ import {
   UploadedFile,
   UseInterceptors,
   Res,
+  Render,
 } from '@nestjs/common';
 import { CommentSimple } from '../dto/comment.dto';
 import { CommentsService } from '../modules/comments/comments.service';
@@ -30,6 +31,12 @@ export class CommentsController {
     @Query() @DecrementId(['id']) query: { id: number },
   ): Promise<CommentSimple[]> {
     return this.commentsService.getComments(query.id);
+  }
+
+  @Get('templates')
+  @Render('index')
+  getTemplate(): { message: string } {
+    return { message: 'Main index template' };
   }
 
   @Get('get-one')

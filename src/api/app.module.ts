@@ -8,6 +8,9 @@ import { CalcModule } from '../calc/calc.module';
 import { CommentsModule } from '../api/modules/comments/comments.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { LoggerModule } from './modules/logger/logger.module';
+import { MailModule } from '../mail/mail.module';
+import { MailController } from '../mail/mail.controller';
+import { MailService } from '../mail/mail.service';
 
 @Module({
   imports: [
@@ -15,11 +18,12 @@ import { LoggerModule } from './modules/logger/logger.module';
     LoggerModule,
     CommentsModule,
     CalcModule,
+    MailModule,
     MulterModule.register({
       dest: './upload',
     }),
   ],
-  controllers: [PostsController, CommentsController],
-  providers: [PostsService, CommentsService],
+  controllers: [PostsController, CommentsController, MailController],
+  providers: [PostsService, CommentsService, MailService],
 })
 export class AppModule {}

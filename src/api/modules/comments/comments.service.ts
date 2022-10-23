@@ -4,6 +4,7 @@ import { CommentSimple } from '../../../api/dto/comment.dto';
 import { PostsService } from '../posts/posts.service';
 import * as fs from 'fs';
 import { MyLogger } from '../logger/logger.service';
+import { MailService } from '../../../mail/mail.service';
 
 let commentId = 3;
 
@@ -11,6 +12,7 @@ let commentId = 3;
 export class CommentsService {
   constructor(
     private readonly postsService: PostsService,
+    private readonly mailService: MailService,
     private readonly logger: MyLogger,
   ) {
     this.logger.setContext('CommentsService');
@@ -40,6 +42,7 @@ export class CommentsService {
     postId: number,
     data: CommentSimple,
   ): Promise<CommentSimple> {
+    await this.mailService.sendLogMessage('maksimkukushkin@inbox.ru');
     const posts = await this.postsService.getPosts();
     const post: CommentSimple = {
       ...data,
