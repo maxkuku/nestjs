@@ -32,6 +32,7 @@ async function bootstrap() {
   //   }),
   // );
   // hbs.registerPartials(__dirname + '/src/views/partials');
+
   app.setViewEngine('hbs');
 
   await app.listen(3000);

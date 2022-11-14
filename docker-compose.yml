@@ -5,9 +5,9 @@ services:
     image: postgres
     environment:
       - PATH=/Users/maksimkukuskin/.nvm/versions/node/v16.17.0/bin:/usr/local/opt/sqlite/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/sqlite/bin:/usr/local/sbin
-      - POSTGRES_DB=gb_blog
-      - POSTGRES_USER=geekbrains
-      - POSTGRES_PASSWORD=NnVwGEOcn6PGBFBDColnzvUS5G59
+      - POSTGRES_DB=geekbrains
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pass
     restart: unless-stopped
     volumes:
       - ./etc/db/data:/var/lib/postgresql/data1
